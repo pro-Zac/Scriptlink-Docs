@@ -8,6 +8,8 @@ Here are some resources to help you get started with creating and maintaining yo
 
 - [Scott Olsons Blog - Creating Your First myAvatar ScriptLink API Using C#](https://rarelysimpleblog.wordpress.com/2020/02/04/creating-your-first-myavatar-scriptlink-api-using-c/)
 
+- [RarelySimple.AvatarScriptLink](https://github.com/rarelysimple/RarelySimple.AvatarScriptLink?tab=MIT-1-ov-file#readme) Scott Olson's git repo for ScriptLink resources.
+
 - [Sharepoint - Creating Your First myAvatar ScriptLink API Using C#]
 
 - Get a tut on how to make a scriptlink in there. Can't really open up our sharepoint to the world. These two ^ and v ain't staying.
@@ -21,6 +23,21 @@ Here are some resources to help you get started with creating and maintaining yo
 - [NTST Developers Resource Group - MyAvatar Development Resource Group - ScriptLinks, Widgets, Web Services](https://netsmartcares.force.com/s/group/0F970000000XeyJCAS/developers-resource-group)
 
 - [NLog Wiki - This package is helpful in implementing logs within your ScriptLink](https://github.com/nlog/nlog/wiki)
+
+## Tools needed for ScriptLink development
+
+Several programs are needed to create and deploy Scriptlink APIs in your environment. These programs are free of charge or Open Source, and should not require admin/financial overhead for approval, but of course, your org's software policy may vary.
+
+- [Microsoft Visual Stuido](https://visualstudio.microsoft.com/) Runs on Windows only. Popular IDE for C# and .NET development. Recommended as it will automatically scaffold your web service upon build/publish.
+    - ScriptLink is technically language agnostic, and can be programmed in pretty much any language you want, though official documentation and most tutorials are in C# via MS Visual Studio (not VS Code) for brevity's sake.
+    - You can use any IDE or text editor to develop.
+    - Most devs will recommend you use VS and C# for Scriptlink, as this is the officially supported flavor.
+
+- [Microsoft Internet Information Services (IIS)](https://www.iis.net/) Comes with Windows Server natively. This is generally where you will deploy your ScriptLink APIs.
+
+- [Microsoft Remote Desktop](https://support.microsoft.com/en-us/windows/how-to-use-remote-desktop-5fe128d5-8fb1-7a23-3b8a-41e636865e8c) Native RDP (remote desktop protocol) application to locally access a remote server. Your ScriptLink APIs will be deployed on a remote server, and this is how you will access it.
+
+
 
 ## Netsmart Hosted ScriptLink Server Development and Deployment
 
