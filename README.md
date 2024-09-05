@@ -27,6 +27,7 @@ Here are some resources to help you get started with creating and maintaining yo
 Our ScriptLink Server is hosted by Netsmart. The following will show you how to access this server. This server hosts our UAT and LIVE environments. Make sure you netsmart has given you credentials and access to RDP into this server.
 
 - Our ScriptLinks are hosted using IIS
+    - IIS is inlcluded in Windows Server, it shoudld come preinstalled on your system
     - IIS has 2 sites for applications. 1. UAT and 2. PROD
     - UAT hosts all of our UAT ScriptLink applications. PROD hosts all of our LIVE ScriptLink applications
     - UAT=UAT PROD=LIVE
@@ -171,4 +172,4 @@ return returnObject;
 - [Microsoft - C# tuts](https://dotnet.microsoft.com/learn/csharp)
 
 ## Credits
-- ht to avenson, you beautiful bastard.
+- h/t to avenson, you beautiful bastard.
