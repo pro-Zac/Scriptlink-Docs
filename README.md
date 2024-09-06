@@ -1,6 +1,13 @@
 # ScriptLink Documentation
 
-ScriptLink allows additional functionality, external data processing and validation within MyAvatar EHR through the use of SOAP web services
+ScriptLink allows additional functionality, external data processing and validation within MyAvatar EHR through the use of SOAP web services.
+
+Some housekeeping notes below:
+- This is a farily high-level overview, and will mainly focus on getting your scriptlink solution running.
+- One of the best ways to learn the more granular scriptlink functionality is to look at examples of other ScriptLinks.
+    - Things like modifying, mathing, concatenating, advanced requirements beyond the capability of Event Logic, changing data values, sending emails, writing to other data tables, linking to other forms, and much more is possible through ScriptLink. If you can think of it, you can probably script it.
+- Scriptlink is specifically bound by the OptionObject2015 framework. If you can't return something that makes sense to the OptionObject, it will not return anything of value to myAvatar. This will make more sense after you get some scripts going.
+
 
 ## Resources
 
@@ -24,24 +31,25 @@ Here are some resources to help you get started with creating and maintaining yo
 
 - [NLog Wiki - This package is helpful in implementing logs within your ScriptLink](https://github.com/nlog/nlog/wiki)
 
+- Netsmart has some official traning videos that give a broad description of the process and capability of Scriptlink. They can be found floating around on the NTST Wiki somewhere.
+
 ## Tools needed for ScriptLink development
 
 Several programs are needed to create and deploy Scriptlink APIs in your environment. These programs are free of charge or Open Source, and should not require admin/financial overhead for approval, but of course, your org's software policy may vary.
 
 - [Microsoft Visual Stuido](https://visualstudio.microsoft.com/) Runs on Windows only. Popular IDE for C# and .NET development. Recommended as it will automatically scaffold your web service upon build/publish.
+    - There is a community edition that is free of cost. This is the one I use for development and deployment.
     - ScriptLink is technically language agnostic, and can be programmed in pretty much any language you want, though official documentation and most tutorials are in C# via MS Visual Studio (not VS Code) for brevity's sake.
     - You can use any IDE or text editor to develop.
     - Most devs will recommend you use VS and C# for Scriptlink, as this is the officially supported flavor.
 
-- [Microsoft Internet Information Services (IIS)](https://www.iis.net/) Comes with Windows Server natively. This is generally where you will deploy your ScriptLink APIs.
+- [Microsoft Internet Information Services (IIS)](https://www.iis.net/) Comes with Windows Server natively. This is generally where you will deploy your ScriptLink APIs. You can use any web server you like, but this one is generally referred to in web service deployment.
 
 - [Microsoft Remote Desktop](https://support.microsoft.com/en-us/windows/how-to-use-remote-desktop-5fe128d5-8fb1-7a23-3b8a-41e636865e8c) Native RDP (remote desktop protocol) application to locally access a remote server. Your ScriptLink APIs will be deployed on a remote server, and this is how you will access it.
 
-
-
 ## Netsmart Hosted ScriptLink Server Development and Deployment
 
-Our ScriptLink Server is hosted by Netsmart. The following will show you how to access this server. This server hosts our UAT and LIVE environments. Make sure you netsmart has given you credentials and access to RDP into this server.
+Your Scriptlink server will be either self hosted on prem, or hosted by Netsmart. Access is through RDP into your server, which will typically be accessible only through an on prem connection or VPN.
 
 - Our ScriptLinks are hosted using IIS
     - IIS is inlcluded in Windows Server, it shoudld come preinstalled on your system
@@ -49,35 +57,34 @@ Our ScriptLink Server is hosted by Netsmart. The following will show you how to 
     - UAT hosts all of our UAT ScriptLink applications. PROD hosts all of our LIVE ScriptLink applications
     - UAT=UAT PROD=LIVE
 
-- Your Scriptlink server will be either self hosted on prem, or hosted by Netsmart. Access is through RDP into your server, which will typically be accessible only through an on prem connection or VPN.
-
 - Your IP address will be provided by Netsmart for hosted servers. On prem servers will be your local 198.xx.xx.xx address that you set up for the remote desktop.
 
 - Directories for UAT and PROD ScriptLinks are defined in your IIS (or other web server app, like Apache or whatever). For example, ours on our server are under `C:/inetpub/UAT/ICWebservices` and `C:/inetpub/PROD/ICWebservices` respectively.
 
 - The UAT and PROD ScriptLinks are held within the `C:/inetpub/UAT/ICWebservices` and `C:/inetpub/PROD/ICWebservices` directories respectively.
 
+**I am not yet certain on how the IP addresses for you webservices are determined. I am looking into this and hope to update in the future.**
+Cursory search of stack overflow found this:
+> I assume you already know where to set the IP addresses in ISS; but for the sake of the next guy, you can do it here:
+
+>IIS Manager->SERVER->Web Sites->[Web Site Name]->Properties->Web Site(Tab)->Web site identification->Advanced(button)
+However, I'm curious as to why you want to have multiple IP addresses. I don't see much benefit to having multiple IPs pointing at one particular web site.
+
+>If you are trying to run multiple websites on one server, you generally don't need multiple IPs. You can share one IP amongst multiple sites (unless your website requires SSL).
+
+>Also, if you really do require multiple IPs for your project, remember that multiple IPs can be assigned to a single NIC. That should save you some hardware and down time.
+
 - Deploying ScriptLinks
     1. Confirm ScriptLink is developed and built within respective directory `C:/inetpub/UAT/ICWebservices` or `C:/inetpub/PROD/ICWebservices` (Checkout Resources on how to build a ScriptLink)
     2. Select site in IIS for whichever environment you are working with. UAT or PROD
     3. Select application under ICWebservices directory drop down 
     4. Right Click on your .Soap project and select "Convert to Application" then press "OK"
+        - the directory of the application you're converting should be the top level after your asmx file in the solution.
     5. Your ScriptLink has now been deployed! Your wsdl endpoints to be imported into MyAvatar's form designer are the following: 
         * UAT: https://xx.xxx.xx.01/ICWebservices/name_of_project/name_of_soap_project.Soap/api/v3/name_of_scriptlink_controller.asmx?WSDL
         * PROD: https://xx.xxx.xx.02/ICWebservices/name_of_project/name_of_soap_project.Soap/api/v3/name_of_scriptlink_controller.asmx?WSDL
         * Note xx.xxx.xx.02 is our UAT IP Address and xx.xxx.xx.01 is our LIVE/PROD IP Address.
 
-## ScriptLink OptionObject return message types
-
-These message numbers allow you to customize the type of response that staff see within MyAvatar
-
-- 1 - returns an error message and stops further processing of scripts
-- 2 - returns a message with ok/cancel buttons
-- 3 - returns a message with an ok button
-- 4 - returns a message with yes/no buttons
-- 5 - returns a url to be opened in a new browser window
-- 6 - returns a list of formids to launch avatar forms
-- 0 - process optionobject and show no message
 
 ## Setting fields
 
@@ -177,7 +184,17 @@ returnObject.Forms = forms;
 return returnObject;
 ```
 
-- feel free to refactor the current repositories with the second method above
+## ScriptLink OptionObject return message types
+
+These message numbers allow you to customize the type of response that staff see within MyAvatar
+
+- 1 - returns an error message and stops further processing of scripts
+- 2 - returns a message with ok/cancel buttons
+- 3 - returns a message with an ok button
+- 4 - returns a message with yes/no buttons
+- 5 - returns a url to be opened in a new browser window
+- 6 - returns a list of formids to launch avatar forms
+- 0 - process optionobject and show no message
 
 ## SQL Connections
 - Please see [ScriptLink Database Connections] on how to create database connections from ScriptLink to MyAvatar Database
