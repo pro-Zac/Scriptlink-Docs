@@ -33,6 +33,8 @@ Here are some resources to help you get started with creating and maintaining yo
 
 - Netsmart has some official traning videos that give a broad description of the process and capability of Scriptlink. They can be found floating around on the NTST Wiki somewhere.
 
+- [Chris Muhleisen's great youtube vids on setting up a scriptlink server](https://www.youtube.com/playlist?list=PL8ACjh0tRO8OK4bRnwSe0vq5eOQ0fYd2u)
+
 ## Tools needed for ScriptLink development
 
 Several programs are needed to create and deploy Scriptlink APIs in your environment. These programs are free of charge or Open Source, and should not require admin/financial overhead for approval, but of course, your org's software policy may vary.
